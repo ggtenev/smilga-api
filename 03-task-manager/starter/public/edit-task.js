@@ -29,6 +29,7 @@ const showTask = async () => {
 showTask()
 
 editFormDOM.addEventListener('submit', async (e) => {
+  console.log(555);
   editBtnDOM.textContent = 'Loading...'
   e.preventDefault()
   try {
@@ -41,6 +42,7 @@ editFormDOM.addEventListener('submit', async (e) => {
       name: taskName,
       completed: taskCompleted,
     })
+   
 
     const { _id: taskID, completed, name } = task
 
