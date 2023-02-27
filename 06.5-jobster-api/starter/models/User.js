@@ -9,6 +9,18 @@ const UserSchema = new mongoose.Schema({
     maxlength: 50,
     minlength: 3,
   },
+  lastName: {
+    type: String,
+    trim: true,
+    deafult: 'Random',
+    maxlength:[20,'Name is too long']
+  },
+  location: {
+    type: String,
+    trim: true,
+    deafult: 'my city',
+    maxlength:[20,'city name is too long']
+  },
   email: {
     type: String,
     required: [true, 'Please provide email'],
@@ -26,6 +38,8 @@ const UserSchema = new mongoose.Schema({
 })
 
 UserSchema.pre('save', async function () {
+  // if the password is not modified we don't hash it again
+  if(!this.isModified('password')) return
   const salt = await bcrypt.genSalt(10)
   this.password = await bcrypt.hash(this.password, salt)
 })
